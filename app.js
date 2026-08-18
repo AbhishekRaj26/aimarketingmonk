@@ -153,30 +153,46 @@ document.addEventListener('DOMContentLoaded', () => {
         auditForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Client-side validations
             const nameInput = document.getElementById('client-name');
             const emailInput = document.getElementById('client-email');
             
-            if (!nameInput.value.trim() || !emailInput.value.trim()) {
+            if (!nameInput || !emailInput || !nameInput.value.trim() || !emailInput.value.trim()) {
                 alert('Please fill out all required fields.');
                 return;
             }
 
-            // Simulate form submission status changes
             const submitBtn = auditForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Analyzing Site Data...';
+            submitBtn.textContent = 'Submitting Audit Request...';
             submitBtn.disabled = true;
 
-            setTimeout(() => {
+            // Prepare form data
+            const formData = new FormData(auditForm);
+            const dataObject = Object.fromEntries(formData);
+
+            // POST to FormSubmit.co via AJAX
+            fetch("https://formsubmit.co/ajax/abhi.jauhari26@gmail.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(dataObject)
+            })
+            .then(response => response.json())
+            .then(data => {
                 auditForm.classList.add('hidden');
                 formSuccess.classList.remove('hidden');
-                
-                // Reset states
+                auditForm.reset();
+            })
+            .catch(err => {
+                console.error("Form submission error:", err);
+                alert("There was an issue submitting your details. Please email monks@aimarketingmonk.com directly.");
+            })
+            .finally(() => {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                auditForm.reset();
-            }, 1500);
+            });
         });
     }
 
