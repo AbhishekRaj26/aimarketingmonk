@@ -151,48 +151,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (auditForm && formSuccess) {
         auditForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            // Remove e.preventDefault() to let the form submit natively
+            // This allows FormSubmit.co to display its email verification page in the browser
             
             const nameInput = document.getElementById('client-name');
             const emailInput = document.getElementById('client-email');
             
             if (!nameInput || !emailInput || !nameInput.value.trim() || !emailInput.value.trim()) {
+                e.preventDefault();
                 alert('Please fill out all required fields.');
                 return;
             }
 
             const submitBtn = auditForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Submitting Audit Request...';
+            submitBtn.textContent = 'Redirecting to verification...';
             submitBtn.disabled = true;
-
-            // Prepare form data
-            const formData = new FormData(auditForm);
-            const dataObject = Object.fromEntries(formData);
-
-            // POST to FormSubmit.co via AJAX
-            fetch("https://formsubmit.co/ajax/abhi.jauhari26@gmail.com", {
-                method: "POST",
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(dataObject)
-            })
-            .then(response => response.json())
-            .then(data => {
-                auditForm.classList.add('hidden');
-                formSuccess.classList.remove('hidden');
-                auditForm.reset();
-            })
-            .catch(err => {
-                console.error("Form submission error:", err);
-                alert("There was an issue submitting your details. Please email monks@aimarketingmonk.com directly.");
-            })
-            .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
         });
     }
 
