@@ -147,5 +147,33 @@
     </footer>
 
     <script src="app.js"></script>
+    <!-- Exit Intent Popup Modal Overlay -->
+    <div id="exit-intent-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="close-exit-modal" aria-label="Close Modal">&times;</button>
+            <div class="badge" style="margin-bottom: 12px; display: inline-block;">Special Offer</div>
+            <h3>Wait! Get a Free Audit</h3>
+            <p style="margin-bottom: 20px; font-size: 0.9rem; color: var(--color-muted);">Before you leave, let our digital monks compile a detailed conversion optimization report for your website in under 4 hours.</p>
+            
+            <form id="exit-audit-form" class="contact-form">
+                <div class="form-group">
+                    <label for="exit-name">Name</label>
+                    <input type="text" id="exit-name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="exit-email">Business Email</label>
+                    <input type="email" id="exit-email" name="email" required placeholder="john@company.com">
+                </div>
+                <div class="form-group">
+                    <label for="exit-website">Website URL</label>
+                    <input type="url" id="exit-website" name="website" placeholder="https://yourcompany.com">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Claim My Free Audit</button>
+            </form>
+            <div id="exit-success" class="subscribe-success hidden" style="margin-top: 15px; text-align: center;">
+                <strong>Audit Request Received!</strong> Check your inbox for confirmation.
+            </div>
+        </div>
+    </div>
 </body>
 </html>

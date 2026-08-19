@@ -190,4 +190,97 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ----------------------------------------------------
+    // Exit Intent Popup Modal Logic
+    // ----------------------------------------------------
+    const exitModal = document.getElementById('exit-intent-modal');
+    const closeExitModal = document.getElementById('close-exit-modal');
+    const exitAuditForm = document.getElementById('exit-audit-form');
+    const exitSuccess = document.getElementById('exit-success');
+
+    function showExitModal() {
+        if (exitModal && !sessionStorage.getItem('exit_intent_triggered')) {
+            exitModal.classList.add('open');
+            sessionStorage.setItem('exit_intent_triggered', 'true');
+        }
+    }
+
+    // 1. Desktop Exit Intent (Mouse leaves viewport top)
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 15) {
+            showExitModal();
+        }
+    });
+
+    // 2. Mobile fallback timer (show after 25 seconds of activity)
+    setTimeout(() => {
+        showExitModal();
+    }, 25000);
+
+    // 3. Modal Close handlers
+    if (exitModal && closeExitModal) {
+        closeExitModal.addEventListener('click', () => {
+            exitModal.classList.remove('open');
+        });
+        exitModal.addEventListener('click', (e) => {
+            if (e.target === exitModal) {
+                exitModal.classList.remove('open');
+            }
+        });
+    }
+
+    // 4. Form Submission handling via AJAX to FormSubmit.co
+    if (exitAuditForm && exitSuccess) {
+        exitAuditForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const nameVal = document.getElementById('exit-name');
+            const emailVal = document.getElementById('exit-email');
+            
+            if (!nameVal || !emailVal || !nameVal.value.trim() || !emailVal.value.trim()) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const submitBtn = exitAuditForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Analyzing Site Data...';
+            submitBtn.disabled = true;
+
+            const formData = new FormData(exitAuditForm);
+            const dataObject = Object.fromEntries(formData);
+
+            fetch("https://formsubmit.co/ajax/abhi.jauhari26@gmail.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(dataObject)
+            })
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.json();
+            })
+            .then(data => {
+                exitAuditForm.classList.add('hidden');
+                exitSuccess.classList.remove('hidden');
+                exitAuditForm.reset();
+                
+                // Keep success message visible briefly before closing
+                setTimeout(() => {
+                    exitModal.classList.remove('open');
+                }, 2500);
+            })
+            .catch(err => {
+                console.error("Popup submit error:", err);
+                alert("Submission failed. Please contact us directly at abhi.jauhari26@gmail.com");
+            })
+            .finally(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 });
