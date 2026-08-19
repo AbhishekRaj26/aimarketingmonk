@@ -343,14 +343,20 @@
                                 <input type="email" id="client-email" name="email" required placeholder="john@company.com">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="client-service">Primary Service Interest</label>
-                            <select id="client-service" name="service">
-                                <option value="web-development">Website Development</option>
-                                <option value="ppc" selected>PPC Ad Management</option>
-                                <option value="social-media">Social Media Management</option>
-                                <option value="graphic-design">Graphic Design</option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-phone">Contact Number</label>
+                                <input type="tel" id="client-phone" name="phone" placeholder="+91 XXXXX XXXXX">
+                            </div>
+                            <div class="form-group">
+                                <label for="client-service">Primary Service Interest</label>
+                                <select id="client-service" name="service">
+                                    <option value="web-development">Website Development</option>
+                                    <option value="ppc" selected>PPC Ad Management</option>
+                                    <option value="social-media">Social Media Management</option>
+                                    <option value="graphic-design">Graphic Design</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="client-msg">Goal / Requirements</label>
@@ -426,9 +432,15 @@
                     <label for="exit-name">Name</label>
                     <input type="text" id="exit-name" name="name" required placeholder="John Doe">
                 </div>
-                <div class="form-group">
-                    <label for="exit-email">Business Email</label>
-                    <input type="email" id="exit-email" name="email" required placeholder="john@company.com">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="exit-email">Business Email</label>
+                        <input type="email" id="exit-email" name="email" required placeholder="john@company.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="exit-phone">Contact Number</label>
+                        <input type="tel" id="exit-phone" name="phone" placeholder="+91 XXXXX XXXXX">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exit-website">Website URL</label>
