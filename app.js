@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const industry = industrySelect.value;
 
         // Formats slider text displays
-        budgetValue.textContent = `$${budget.toLocaleString()}`;
-        cpcValue.textContent = `$${baseCpc.toFixed(2)}`;
+        budgetValue.textContent = `₹${budget.toLocaleString()}`;
+        cpcValue.textContent = `₹${baseCpc.toFixed(2)}`;
 
         const config = industryRates[industry] || industryRates.b2b;
 
@@ -126,12 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Display updates
         tradLeadsDisplay.textContent = `${tradLeadsCount} Leads`;
-        tradLeadsDisplay.nextElementSibling.textContent = `at $${Math.round(tradCpa)} CPA`;
+        tradLeadsDisplay.nextElementSibling.textContent = `at ₹${Math.round(tradCpa)} CPA`;
 
         aiLeadsDisplay.textContent = `${aiLeadsCount} Leads`;
-        aiLeadsDisplay.nextElementSibling.textContent = `at $${Math.round(aiCpa)} CPA`;
+        aiLeadsDisplay.nextElementSibling.textContent = `at ₹${Math.round(aiCpa)} CPA`;
 
-        savingsDisplay.textContent = `$${netSavings.toLocaleString()}`;
+        savingsDisplay.textContent = `₹${netSavings.toLocaleString()}`;
     }
 
     if (budgetSlider && cpcSlider && industrySelect) {
